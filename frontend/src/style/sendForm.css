@@ -1,0 +1,13 @@
+.form-group-send{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items:flex-end;
+}
+
+.form-group-send-child{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
