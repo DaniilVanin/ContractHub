@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  api:
+    build: ./backend
+    container_name: api_backend
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./api:/app
+    networks:
+      back:
+        ipv4_address: 172.29.0.3
+        ipv6_address: 2001:3984:3989::3 
+      default:
+  client:
+    build: ./frontend
+    container_name: client_frontend
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/app
+    stdin_open: true
+    tty: true
+    networks:
+      back:
+        ipv4_address: 172.29.0.2
+        ipv6_address: 2001:3984:3989::2
+      default:
+  # sql:
+  #   image: sql-statement
+  #   container_name: sql_database
+  #   ports:
+  #     - '1433:1433'
+  #   volumes:
+  #     - ./sql:/app
+  #   networks:
+  #     back:
+  #       ipv4_address: 172.29.0.4
+  #       ipv6_address: 2001:3984:3989::4
+  #     default:
+networks:
+  back:
+    driver: bridge
+    enable_ipv6: true
+    internal: true
+    ipam:
+     driver: default
+     config:
+       - subnet: 172.29.0.0/24
+       - subnet: 2001:3984:3989::/64 
+  default:
+    driver: bridge
